@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="deneme.h">
+    <ClInclude Include="ekranayazdir.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="deneme.cpp">
+    <ClCompile Include="ekranayazdir.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -110,10 +110,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="deneme.h" />
+    <ClInclude Include="ekranayazdir.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="deneme.cpp" />
+    <ClCompile Include="ekranayazdir.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
