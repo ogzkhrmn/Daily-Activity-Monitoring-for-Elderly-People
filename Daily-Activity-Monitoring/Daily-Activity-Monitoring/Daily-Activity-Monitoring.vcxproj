@@ -109,8 +109,8 @@
       <AdditionalIncludeDirectories>$(OPENCV_DIR)\..\..\include;C:\Program Files\Microsoft SDKs\Kinect\v1.8\inc;C:\Program Files\OpenNI2\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(OPENCV_DIR)\lib;C:\Program Files\Microsoft SDKs\Kinect\v1.8\lib\x86;C:\Program Files\Microsoft SDKs\Kinect\v1.8\lib\amd64;C:\Program Files\OpenNI2\Lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world310d.lib;kinect10.lib;OpenNI2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OPENCV_DIR)\lib;C:\Program Files\OpenNI2\Lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world310.lib;OpenNI2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -143,16 +143,13 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(OPENCV_DIR)\lib;C:\Program Files\Microsoft SDKs\Kinect\v1.8\lib\x86;C:\Program Files\Microsoft SDKs\Kinect\v1.8\lib\amd64;C:\Program Files\OpenNI2\Lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world310d.lib;kinect10.lib;OpenNI2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OPENCV_DIR)\lib;C:\Program Files\OpenNI2\Lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world310.lib;OpenNI2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ekranayazdir.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ekranayazdir.cpp" />
+    <ClCompile Include="glut.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
