@@ -1,6 +1,9 @@
 #include <OpenNI.h>
 #include <opencv/cv.h>
 #include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
 
 
 using namespace openni;
@@ -69,8 +72,11 @@ int main()
 					double max;
 					minMaxIdx(m, &min, &max);
 					Mat adjMap;
-					convertScaleAbs(m, adjMap, 255 / max);
-					imshow("Out", adjMap);
+					m.convertTo(adjMap, CV_8UC1, 255 / (max - min), -min);
+					Mat falseColorsMap;
+					applyColorMap(adjMap, falseColorsMap, COLORMAP_AUTUMN);
+					imshow("Depth", falseColorsMap);
+					imshow("CDepth", adjMap);
 				}
 				break;
 
