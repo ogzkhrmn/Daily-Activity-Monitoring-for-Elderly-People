@@ -107,10 +107,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(OPENCV_DIR)\..\..\include;C:\Program Files\Microsoft SDKs\Kinect\v1.8\inc;C:\Program Files\OpenNI2\Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(OPENCV_DIR)\lib;C:\Program Files\OpenNI2\Lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world310.lib;OpenNI2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OPENCV_DIR)\lib;C:\Program Files\OpenNI2\Lib;C:\Program Files\Microsoft SDKs\Kinect\v1.8\lib\amd64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world310.lib;OpenNI2.lib;kinect10.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -139,17 +140,22 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(OPENCV_DIR)\..\..\include;C:\Program Files\Microsoft SDKs\Kinect\v1.8\inc;C:\Program Files\OpenNI2\Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(OPENCV_DIR)\lib;C:\Program Files\OpenNI2\Lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world310.lib;OpenNI2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OPENCV_DIR)\lib;C:\Program Files\OpenNI2\Lib;C:\Program Files\Microsoft SDKs\Kinect\v1.8\lib\amd64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world310.lib;OpenNI2.lib;kinect10.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="glut.cpp" />
+    <ClCompile Include="mainclass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="custom.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
