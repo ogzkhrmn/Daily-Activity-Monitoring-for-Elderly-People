@@ -1,9 +1,10 @@
-﻿#include <OpenNI.h>
+﻿
 #include <opencv/cv.h>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
+#include <openni\XnCppWrapper.h>
 
 
 using namespace openni;
@@ -49,7 +50,7 @@ int main()
 	stream[0] = &depth;
 	stream[1] = &color;
 	puts("Kinect initialization completed");
-
+	
 
 	if (device.getSensorInfo(SENSOR_DEPTH) != NULL)
 	{
@@ -78,7 +79,7 @@ int main()
 					Mat adjMap;
 					m.convertTo(adjMap, CV_8U, 255 / (max - min), -min);
 					if (!first) {
-						subtract(before, adjMap,dest);
+						subtract(before, adjMap, dest);
 						imshow("ST", dest);
 						before = adjMap;
 					}
@@ -90,7 +91,7 @@ int main()
 					applyColorMap(adjMap, falseColorsMap, COLORMAP_AUTUMN);
 					imshow("Depth", falseColorsMap);
 					imshow("CDepth", adjMap);
-					printf("%d\n",depthFrame.getFrameIndex());
+					printf("%d\n", depthFrame.getFrameIndex());
 				}
 				break;
 
