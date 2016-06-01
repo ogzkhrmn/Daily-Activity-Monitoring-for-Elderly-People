@@ -15,12 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ekranayazdir.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ekranayazdir.cpp">
+    <ClCompile Include="getImages.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FIndActionHog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
