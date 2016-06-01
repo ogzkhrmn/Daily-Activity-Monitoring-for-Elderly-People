@@ -15,7 +15,6 @@
 #include <sstream>
 #include <OpenNI.h>
 #include <string> 
-#include <dirent.h>
 #include <Windows.h>
    
 
@@ -49,8 +48,7 @@ int computeHog(Mat im1,Mat im2) {
 	float rrr = rr(0);
 	cout << "Distance: " << rrr << endl;
 
-
-	return 0;
+		return rrr;
 }
 
 int main() {
@@ -58,8 +56,10 @@ int main() {
 	
 	bool isfirst=true;
 	Mat myimage, myimage2;
-	String s;
-	myimage = imread("C:/images/actions/image118.bmp", CV_LOAD_IMAGE_GRAYSCALE);
+	String s,imagename;
+	int distance = INT32_MAX;
+	int finddis;
+	myimage = imread("C:/images/actions/image157.bmp", CV_LOAD_IMAGE_GRAYSCALE);
 	vector<string> names;
 	WIN32_FIND_DATA FindFileData;
 	string img = "C:\\images/actions/*.bmp";
@@ -68,18 +68,20 @@ int main() {
 		return false;
 	}
 	else do {
-		if (isfirst) {
-			isfirst = false;
-		}
-		else {
 			s = FindFileData.cFileName;
 			s = "C:/images/actions/"+s +"";
 			cout << FindFileData.cFileName << endl;
 			cout << s << endl;
 			myimage2 = imread(s, CV_LOAD_IMAGE_GRAYSCALE);
-			computeHog(myimage,myimage2);
-		}
+			finddis=computeHog(myimage,myimage2);
+			if (finddis<distance &&strcmp(FindFileData.cFileName, "image157.bmp")) {
+				distance = finddis;
+				imagename = FindFileData.cFileName;
+			}
 	} while (FindNextFile(hFind, &FindFileData));
-	FindClose(hFind);
+	cout<<endl;
+	cout << distance << endl;
+	cout << imagename << endl;
+   	FindClose(hFind);
 	return 0;
 }
