@@ -1,6 +1,2 @@
-﻿  FIndActionHog.cpp
-c:\users\ogzkhrmn\source\repos\daily-activity-monitoring-for-elderly-people\daily-activity-monitoring\daily-activity-monitoring\findactionhog.cpp(38): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\ogzkhrmn\source\repos\daily-activity-monitoring-for-elderly-people\daily-activity-monitoring\daily-activity-monitoring\findactionhog.cpp(42): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\ogzkhrmn\source\repos\daily-activity-monitoring-for-elderly-people\daily-activity-monitoring\daily-activity-monitoring\findactionhog.cpp(49): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Daily-Activity-Monitoring.vcxproj -> C:\Users\ogzkhrmn\Source\Repos\Daily-Activity-Monitoring-for-Elderly-People\Daily-Activity-Monitoring\Daily-Activity-Monitoring\x64\Debug\Daily-Activity-Monitoring.exe
-  Daily-Activity-Monitoring.vcxproj -> C:\Users\ogzkhrmn\Source\Repos\Daily-Activity-Monitoring-for-Elderly-People\Daily-Activity-Monitoring\Daily-Activity-Monitoring\x64\Debug\Daily-Activity-Monitoring.pdb (Partial PDB)
+﻿  Daily-Activity-Monitoring.vcxproj -> C:\Users\ogzkh\Source\Repos\Daily-Activity-Monitoring-for-Elderly-People\Daily-Activity-Monitoring\Daily-Activity-Monitoring\x64\Debug\Daily-Activity-Monitoring.exe
+  Daily-Activity-Monitoring.vcxproj -> C:\Users\ogzkh\Source\Repos\Daily-Activity-Monitoring-for-Elderly-People\Daily-Activity-Monitoring\Daily-Activity-Monitoring\x64\Debug\Daily-Activity-Monitoring.pdb (Partial PDB)
