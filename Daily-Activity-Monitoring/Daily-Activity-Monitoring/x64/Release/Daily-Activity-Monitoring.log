@@ -1,0 +1,13 @@
+﻿  findAction.cpp
+findAction.cpp(121): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+findAction.cpp(123): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+findAction.cpp(125): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+findAction.cpp(127): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+  Generating code
+  2 of 363 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    9 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Daily-Activity-Monitoring.vcxproj -> C:\Users\ogzkhrmn\Source\Repos\Daily-Activity-Monitoring-for-Elderly-People\Daily-Activity-Monitoring\Daily-Activity-Monitoring\x64\Release\Daily-Activity-Monitoring.exe
+  Daily-Activity-Monitoring.vcxproj -> C:\Users\ogzkhrmn\Source\Repos\Daily-Activity-Monitoring-for-Elderly-People\Daily-Activity-Monitoring\Daily-Activity-Monitoring\x64\Release\Daily-Activity-Monitoring.pdb (Full PDB)
