@@ -151,8 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FIndActionHog.cpp" />
+    <ClCompile Include="findAction.cpp" />
+    <ClCompile Include="hogExtraction.cpp" />
     <ClCompile Include="getImages.cpp" />
+    <ClCompile Include="svmTrain.cpp" />
+    <ClCompile Include="Train.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

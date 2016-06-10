@@ -18,7 +18,16 @@
     <ClCompile Include="getImages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FIndActionHog.cpp">
+    <ClCompile Include="Train.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="findAction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hogExtraction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="svmTrain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
