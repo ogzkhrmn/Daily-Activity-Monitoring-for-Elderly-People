@@ -151,11 +151,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="findAction.cpp" />
-    <ClCompile Include="hogExtraction.cpp" />
-    <ClCompile Include="getImages.cpp" />
-    <ClCompile Include="svmTrain.cpp" />
+    <ClCompile Include="ActionRecognition.cpp" />
+    <ClCompile Include="ExtractSilhouette.cpp" />
+    <ClCompile Include="HogExtraction.cpp" />
+    <ClCompile Include="ImagesGetting.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Train.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ActionRecognition.h" />
+    <ClInclude Include="ExtractSilhouette.h" />
+    <ClInclude Include="HogExtraction.h" />
+    <ClInclude Include="ImagesGetting.h" />
+    <ClInclude Include="Train.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

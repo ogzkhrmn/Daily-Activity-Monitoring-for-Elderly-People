@@ -1,17 +1,14 @@
-/*
-This functions using for tarining the svm classes
-*/
-
-
-#include < stdio.h>
-#include < opencv2\opencv.hpp>
-#include <opencv2\ml\ml.hpp>
-//#include < opencv2\gpu\gpu.hpp>
+#include "Train.h"
 
 using namespace cv;
-using namespace std;
 
-int Train() {
+Train::Train(string getPath)
+{
+	filepath = getPath;
+}
+
+void Train::traineSVM(string output)
+{
 	//positive and negative mats
 	Mat pMat;
 	Mat nMat;
@@ -19,14 +16,13 @@ int Train() {
 	//Read Hog feature from XML file
 	///////////////////////////////////////////////////////////////////////////
 	//create xml to read
-	FileStorage read_PositiveXml("C:\\images\\el\\Positive\\positive.xml", FileStorage::READ);
+	FileStorage read_PositiveXml(filepath + "\\Positive\\Positive.xml", FileStorage::READ);
 	read_PositiveXml["Descriptor_of_images"] >> pMat;
 	//Read Row, Cols
 	pRow = pMat.rows; pCol = pMat.cols;
 	read_PositiveXml.release();
-	FileStorage read_NegativeXml("C:\\images\\el\\Negative\\negative.xml", FileStorage::READ);
-	
 
+	FileStorage read_NegativeXml(filepath + "\\Negative\\Negative.xml", FileStorage::READ);
 	//reading negative hog futures
 	read_NegativeXml["Descriptor_of_images"] >> nMat;
 	int nRow, nCol;
@@ -63,7 +59,10 @@ int Train() {
 	svm->train(PN_Descriptor_mtx, ml::ROW_SAMPLE, labels);
 	//Trained data save
 	/////////////////////////////////////////////////////////////////////////////////
-	svm->save("C:\\images/elSVM.xml");
-
-	return 0;
+	svm->save(filepath + "/" + output + ".xml");
+	svm->clear();
+	PN_Descriptor_mtx.release();
+	cout << endl << "SVM is created at "+ filepath + "\\" + output + ".xml" << endl;
 }
+
+

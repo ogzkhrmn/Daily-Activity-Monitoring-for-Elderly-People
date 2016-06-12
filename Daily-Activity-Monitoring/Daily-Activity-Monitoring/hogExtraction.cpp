@@ -1,20 +1,17 @@
-//opencv
-#define NOMINMAX
-#include <opencv2\core.hpp>
-#include <opencv2/opencv.hpp>
-//C++
-#include <sstream>
-#include <iostream>
-#include <string> 
-#include <Windows.h>
 
 
+#include "HogExtraction.h"
 using namespace cv;
-using namespace std;
 vector< vector < float> > v_descriptorsValues;
-vector< vector < Point> > v_locations;
+vector< vector < cv::Point> > v_locations;
+HogExtraction::HogExtraction(string getPath,string getType)
+{
+	filepath = getPath;
+	type = getType;
+}
 
-void computeHogandSave(Mat im1){
+void HogExtraction::computeHogandSave(Mat im1)
+{
 	//hog feature extraction
 	vector< float> descriptorsValues;
 	vector< Point> locations;
@@ -25,33 +22,36 @@ void computeHogandSave(Mat im1){
 	v_locations.push_back(locations);
 }
 
-void saveXml() {
+void HogExtraction::saveXml()
+{
 	//saving extracted hog futures
-	FileStorage hogXml("C:\\images/yur/Positive/positive.xml", FileStorage::WRITE);
+	FileStorage hogXml(filepath + "\\" + type + "/"+type+".xml", FileStorage::WRITE);
 	int row = v_descriptorsValues.size(), col = v_descriptorsValues[0].size();
 	Mat M(row, col, CV_32F);
-	for (int i = 0; i< row; ++i)
+	for (int i = 0; i < row; ++i)
 		memcpy(&(M.data[col * i * sizeof(float)]), v_descriptorsValues[i].data(), col*sizeof(float));
 	//saving hog futures
 	write(hogXml, "Descriptor_of_images", M);
 	hogXml.release();
+	v_descriptorsValues.clear();
+	v_locations.clear();
+	cout << endl << "Hog is created at loacation: " + filepath + "\\" + type + "\\"  + type + ".xml" << endl;
 }
 
-int hogExtraction() {
+void HogExtraction::extractHog()
+{
 	Mat myimage;
 	String s;
 	WIN32_FIND_DATA FindFileData;
-	string img = "C:\\images/yur/Positive/*.bmp";
+	string img = filepath + "\\" + type + "/*.bmp";
 	HANDLE hFind = FindFirstFile(img.c_str(), &FindFileData);
 	if (hFind == INVALID_HANDLE_VALUE) {
-		return false;
 	}
 	//getting files in our directory
 	else do {
 		s = FindFileData.cFileName;
-		s = "C:\\images/yur/Positive/" + s + "";
+		s = filepath + "\\" + type + "/"+ s + "";
 		cout << FindFileData.cFileName << endl;
-		cout << s << endl;
 		myimage = imread(s, CV_LOAD_IMAGE_GRAYSCALE);
 		//adding hog futures orur vector
 		computeHogandSave(myimage);
@@ -59,5 +59,6 @@ int hogExtraction() {
 	cout << endl;
 	saveXml();
 	FindClose(hFind);
-	return 0;
 }
+
+
