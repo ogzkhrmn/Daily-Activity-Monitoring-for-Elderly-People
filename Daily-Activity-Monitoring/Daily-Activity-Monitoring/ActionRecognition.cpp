@@ -1,6 +1,12 @@
 #include "ActionRecognition.h"
 #include "ExtractSilhouette.h"
 #include <OpenNI.h>
+#include <windows.h>
+#include <Lmcons.h>
+#include <ctime>
+#include <fstream>
+#include <direct.h>
+
 /*
 This calss is using for finding actions.
 With this function we will detect actions.
@@ -16,9 +22,20 @@ ActionRecognition::ActionRecognition()
 }
 
 int ActionRecognition::startActionRecognition() {
-
+	time_t t;
+	time_t starttime;
+	time_t last_time;
+	struct tm * now;
+	char buffer[80];
+	//get username
+	char username[UNLEN + 1];
+	DWORD username_len = UNLEN + 1;
+	GetUserName(username, &username_len);
+	string myusername(username);
+	// current date/time based on current system
 	ExtractSilhouette es;
 	Mat dest;
+	ofstream myfile;
 	//Load trained SVM xml data
 	cout << "Opening SVM files" << endl;
 	Ptr<ml::SVM> svmyur = ml::SVM::create();
@@ -27,9 +44,6 @@ int ActionRecognition::startActionRecognition() {
 	svmel = SVM::load<SVM>("C:\\images\\elSVM.xml");
 	Ptr<ml::SVM> svmkol = ml::SVM::create();
 	svmkol = SVM::load<SVM>("C:\\images\\kolSVM.xml");
-	Ptr<ml::SVM> svmzip = ml::SVM::create();
-	svmzip = SVM::load<SVM>("C:\\images\\ziplamaSVM.xml");
-
 
 	//Kinext initilization starting
 
@@ -73,7 +87,6 @@ int ActionRecognition::startActionRecognition() {
 	vector< float> descriptorsValues;
 	vector< Point> locations;
 
-
 	if (device.getSensorInfo(SENSOR_DEPTH) != NULL)
 	{
 		stringstream file;
@@ -116,32 +129,46 @@ int ActionRecognition::startActionRecognition() {
 							whichFrame = 0;
 							counter++;
 							d.compute(dest, descriptorsValues, Size(0, 0), Size(0, 0), locations);
-
+							t = time(0);   // get time now
+							now = localtime(&t);
+							strftime(buffer, 80, "%d-%m-%Y", now);
+							string filename(buffer);
+							strftime(buffer, 80, "%T", now);
+							string date(buffer);
 							//checking all svmdetectors
 							result = svmyur->predict(descriptorsValues);
 							if (result == -1) {
-								result = svmel->predict(descriptorsValues);
+								result = svmkol->predict(descriptorsValues);
 								if (result == -1) {
-									result = svmkol->predict(descriptorsValues);
+									result = svmel->predict(descriptorsValues);
 									if (result == -1) {
-										result = svmzip->predict(descriptorsValues);
-										if (result == -1) {
-											printf("Tanimadim\n");
-										}
-										else {
-											printf("Ziplama\n");
-										}
+											starttime = time(0);
+											if (difftime(starttime,last_time)>600) {
+												cout << "\n Uzun suredir hareket gozlemlenmedi!!!! \a\a";
+											}
 									}
 									else {
-										printf("kol\n");
+										cout << "El Sallama\t " << date << endl;
+										last_time = time(0);
+										myfile.open("C:\\Users\\" + myusername + "\\Desktop\\Activity\\" + filename + ".txt", ios_base::app);
+										myfile << "El Sallama\t " << date << endl;
+										myfile.close();
 									}
 								}
 								else {
-									printf("El\n");
+									cout << "Kol Acma Kapama\t " << date << endl;
+									last_time = time(0);
+									myfile.open("C:\\Users\\" + myusername + "\\Desktop\\Activity\\" + filename + ".txt", ios_base::app);
+									myfile << "Kol Acma Kapama\t " << date << endl;
+									myfile.close();
 								}
 							}
 							else {
-								printf("Yurume\n");
+								cout << "Yurume\t " << date << endl;
+								last_time = time(0);
+								myfile.open("C:\\Users\\" + myusername + "\\Desktop\\Activity\\" + filename + ".txt", ios_base::app);
+								myfile << "Yurume\t " << date << endl;
+								myfile.close();
 							}
 							extractedSilhoutte.copyTo(dest);
 						}

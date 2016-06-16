@@ -1,4 +1,6 @@
-
+/*
+this class uses for extraction and saving hog futures
+*/
 
 #include "HogExtraction.h"
 using namespace cv;

@@ -1,3 +1,7 @@
+/*
+This class uses for saving frames
+*/
+
 #include "ImagesGetting.h"
 #include <OpenNI.h>
 

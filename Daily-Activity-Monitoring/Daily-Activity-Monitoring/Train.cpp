@@ -1,3 +1,7 @@
+/*
+This class uses for training and creating SVM futures
+*/
+
 #include "Train.h"
 
 using namespace cv;
