@@ -44,6 +44,12 @@ int ActionRecognition::startActionRecognition() {
 	svmel = SVM::load<SVM>("C:\\images\\elSVM.xml");
 	Ptr<ml::SVM> svmkol = ml::SVM::create();
 	svmkol = SVM::load<SVM>("C:\\images\\kolSVM.xml");
+	Ptr<ml::SVM> svmbos = ml::SVM::create();
+	svmbos = SVM::load<SVM>("C:\\images\\bosSVM.xml");
+	Ptr<ml::SVM> svmsag = ml::SVM::create();
+	svmsag = SVM::load<SVM>("C:\\images\\sagSVM.xml");
+	Ptr<ml::SVM> svmsol = ml::SVM::create();
+	svmsol = SVM::load<SVM>("C:\\images\\solSVM.xml");
 
 	//Kinext initilization starting
 
@@ -83,7 +89,7 @@ int ActionRecognition::startActionRecognition() {
 	//result 
 	int result;
 	//HogFeature variables
-	HOGDescriptor d(Size(640, 480), Size(8, 8), Size(4, 4), Size(4, 4), 9);
+	HOGDescriptor d(Size(320, 240), Size(8, 8), Size(4, 4), Size(4, 4), 9);
 	vector< float> descriptorsValues;
 	vector< Point> locations;
 
@@ -97,6 +103,8 @@ int ActionRecognition::startActionRecognition() {
 		Mat extractedSilhoutte;
 		int counter = 0;
 		int whichFrame = 0;
+		int harekettype=0;
+		last_time = time(0);
 		while (device.isValid())
 		{
 			OpenNI::waitForAnyStream(stream, 2, &changedIndex);
@@ -128,6 +136,7 @@ int ActionRecognition::startActionRecognition() {
 							//if we add 20 frames we trying to detection an action
 							whichFrame = 0;
 							counter++;
+							resize(dest, dest, Size(320, 240));
 							d.compute(dest, descriptorsValues, Size(0, 0), Size(0, 0), locations);
 							t = time(0);   // get time now
 							now = localtime(&t);
@@ -136,39 +145,71 @@ int ActionRecognition::startActionRecognition() {
 							strftime(buffer, 80, "%T", now);
 							string date(buffer);
 							//checking all svmdetectors
-							result = svmyur->predict(descriptorsValues);
-							if (result == -1) {
-								result = svmkol->predict(descriptorsValues);
+							result = svmbos->predict(descriptorsValues);
+							if (result==-1){
+								result = svmyur->predict(descriptorsValues);
 								if (result == -1) {
-									result = svmel->predict(descriptorsValues);
-									if (result == -1) {
-											starttime = time(0);
-											if (difftime(starttime,last_time)>600) {
-												cout << "\n Uzun suredir hareket gozlemlenmedi!!!! \a\a";
+									result = svmkol->predict(descriptorsValues);
+										if (result == -1) {
+											result = svmel->predict(descriptorsValues);
+											if (result == -1) {
+												result = svmsag->predict(descriptorsValues);
+												if(result==-1){
+													result = svmsol->predict(descriptorsValues);
+													if (result == -1) {
+														starttime = time(0);
+														if (difftime(starttime, last_time)>600) {
+															cout << "\n Uzun suredir hareket gozlemlenmedi!!!! \a\a";
+														}
+													}
+													else {
+														cout << "Sol Kol Acma\t " << date << endl;
+														last_time = time(0);
+														myfile.open("C:\\Users\\" + myusername + "\\Desktop\\Activity\\" + filename + ".txt", ios_base::app);
+														myfile << "Sol Kol Acma\t " << date << endl;
+														myfile.close();
+													}
+												}
+												else {
+													cout << "Sag Kol Acma\t " << date << endl;
+													last_time = time(0);
+													myfile.open("C:\\Users\\" + myusername + "\\Desktop\\Activity\\" + filename + ".txt", ios_base::app);
+													myfile << "Sag Kol Acma\t " << date << endl;
+													myfile.close();
+												}
+												
+
 											}
-									}
-									else {
-										cout << "El Sallama\t " << date << endl;
-										last_time = time(0);
-										myfile.open("C:\\Users\\" + myusername + "\\Desktop\\Activity\\" + filename + ".txt", ios_base::app);
-										myfile << "El Sallama\t " << date << endl;
-										myfile.close();
-									}
+											else {
+												cout << "El Sallama\t " << date << endl;
+												last_time = time(0);
+												myfile.open("C:\\Users\\" + myusername + "\\Desktop\\Activity\\" + filename + ".txt", ios_base::app);
+												myfile << "El Sallama\t " << date << endl;
+												myfile.close();
+
+											}
+										}
+										else {
+											cout << "Kol Acma Kapama\t " << date << endl;
+											last_time = time(0);
+											myfile.open("C:\\Users\\" + myusername + "\\Desktop\\Activity\\" + filename + ".txt", ios_base::app);
+											myfile << "Kol Acma Kapama\t " << date << endl;
+											myfile.close();
+										}	
 								}
 								else {
-									cout << "Kol Acma Kapama\t " << date << endl;
+									cout << "Yurume\t " << date << endl;
 									last_time = time(0);
 									myfile.open("C:\\Users\\" + myusername + "\\Desktop\\Activity\\" + filename + ".txt", ios_base::app);
-									myfile << "Kol Acma Kapama\t " << date << endl;
+									myfile << "Yurume\t " << date << endl;
 									myfile.close();
 								}
 							}
 							else {
-								cout << "Yurume\t " << date << endl;
-								last_time = time(0);
-								myfile.open("C:\\Users\\" + myusername + "\\Desktop\\Activity\\" + filename + ".txt", ios_base::app);
-								myfile << "Yurume\t " << date << endl;
-								myfile.close();
+								starttime = time(0);
+								if (difftime(starttime,last_time)>600) {
+								cout << "\n Uzun suredir hareket gozlemlenmedi!!!! \a\a";
+								}
 							}
 							extractedSilhoutte.copyTo(dest);
 						}

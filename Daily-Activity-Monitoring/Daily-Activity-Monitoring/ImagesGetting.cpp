@@ -90,6 +90,7 @@ int ImagesGetting::getImages()
 						if (whichFrame == 20) {
 							//if we add 20  frames saving image
 							whichFrame = 0;
+							resize(dest, dest, Size(320,240));
 							imwrite("C:/images/image" + to_string(counter) + ".bmp", dest);
 							counter++;
 							extractedSilhoutte.copyTo(dest);

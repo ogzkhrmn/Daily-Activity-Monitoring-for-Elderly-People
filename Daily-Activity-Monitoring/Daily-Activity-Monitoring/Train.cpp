@@ -1,5 +1,5 @@
 /*
-This class uses for training and creating SVM futures
+This class uses for training and creating SVM features
 */
 
 #include "Train.h"
@@ -27,7 +27,7 @@ void Train::traineSVM(string output)
 	read_PositiveXml.release();
 
 	FileStorage read_NegativeXml(filepath + "\\Negative\\Negative.xml", FileStorage::READ);
-	//reading negative hog futures
+	//reading negative hog features
 	read_NegativeXml["Descriptor_of_images"] >> nMat;
 	int nRow, nCol;
 	nRow = nMat.rows; nCol = nMat.cols;
@@ -63,7 +63,7 @@ void Train::traineSVM(string output)
 	svm->train(PN_Descriptor_mtx, ml::ROW_SAMPLE, labels);
 	//Trained data save
 	/////////////////////////////////////////////////////////////////////////////////
-	svm->save(filepath + "/" + output + ".xml");
+	svm->save("C:\\images\\"  + output + ".xml");
 	svm->clear();
 	PN_Descriptor_mtx.release();
 	cout << endl << "SVM is created at "+ filepath + "\\" + output + ".xml" << endl;
